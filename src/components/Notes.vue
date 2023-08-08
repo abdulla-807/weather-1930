@@ -2,11 +2,11 @@
     <div class="notes">
         <div class="container">
             <section class="notes__header">
-                <h2 class="notes__title">{{ notes.length > 0 ? 'Все заметки' : 'Нет заметок' }}</h2>
+                <h2 class="notes__title">{{ notes.length > 0 ? words.infobar[lang] : words.noinfobar[lang] }}</h2>
                 <button @click="grid = !grid" class="notes__btn">
                     <img v-if="grid" src="../assets/img/list.svg" alt="">
                     <img v-else src="../assets/img/grid.svg" alt="">
-                    <span>{{ grid ? 'Список' : 'Сетка'}}</span>
+                    <span>{{ grid ? words.list[lang] : words.grid[lang]}}</span>
                 </button>
             </section>
             <section :class="{ active: !grid }" class="notes__list">
@@ -16,6 +16,7 @@
                 :note="item"
                 @delNote="$emit('delNote', item.id)"
                 @changeNote="$emit('changeNote', item.id)"
+                :lang="lang"
                 />
             </section>
         </div>
@@ -32,13 +33,15 @@
             notes: {
                 default: [],
                 type: Array
-            }
+            },
+            lang: String
         },
         data(){
             return {
                 grid: true
             }
-        }
+        },
+        inject: ['words']
     }
 </script>
 

@@ -8,11 +8,11 @@
         <div class="card__controls">
             <button @click="$emit('changeNote')" class="card__btn">
                 <img src="../assets/img/edit.svg" alt="">
-                <span>РЕДАКТИРОВАТЬ</span>
+                <span>{{ words.editbtn[lang] }}</span>
             </button>
             <button @click="$emit('delNote')" class="card__btn card__btn_red">
                 <img src="../assets/img/delete.svg" alt="">
-                <span>Удалить</span>
+                <span>{{ words.deledit[lang] }}</span>
             </button>
         </div>
     </div>
@@ -22,8 +22,10 @@
     export default {
         props: {
             grid: Boolean,
-            note: Object
-        }
+            note: Object,
+            lang: String
+        },
+        inject: ['words']
     }
 </script>
 

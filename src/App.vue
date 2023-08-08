@@ -1,10 +1,15 @@
 <template>
   <div>
-    <Header @getSearch="search = $event"/>
+    <Header 
+    @getSearch="search = $event"
+    :lang="lang"
+    @changeLang="changeLang"
+    />
     <Notes 
     :notes="filterNotes"
     @delNote="delNote"
     @changeNote="changeNote"
+    :lang="lang"
     />
     <Modal 
     @closeModal="closeModal" 
@@ -14,6 +19,7 @@
     :edit="edit"
     :editNote="editNote"
     @editedNote="editedNote"
+    :lang="lang"
     />
     <AddButton @openModal="openModal"/>
   </div>
@@ -26,9 +32,9 @@ import Modal from './components/Modal.vue';
 import AddButton from './components/Add-Button.vue';
 import langs from './lang'
 import { vasya, Petya } from './lang'
-console.log(langs);
-console.log(vasya);
-console.log(Petya);
+// console.log(langs);
+// console.log(vasya);
+// console.log(Petya);
 
   export default {
     components: {
@@ -63,7 +69,9 @@ console.log(Petya);
         currentId: 1,
         edit: false,
         editNote: {},
-        search: ''
+        search: '',
+        lang: 'ru',
+        langwords: {}
       }
     },
     methods: {
@@ -106,6 +114,10 @@ console.log(Petya);
             elem.date = item.date;
           }
         })
+      },
+      changeLang(val){
+        this.lang = val;
+        localStorage.setItem('lang', val)
       }
     },
     watch:{
@@ -118,6 +130,8 @@ console.log(Petya);
     },
     created(){
       this.getNotes()
+      this.langwords = langs;
+      this.lang = localStorage.getItem('lang') || 'ru'
     }, 
     computed: {
       filterNotes(){
@@ -127,6 +141,9 @@ console.log(Petya);
         })
         return items
       }
+    },
+    provide: {
+      words: langs
     }
   }
 </script>

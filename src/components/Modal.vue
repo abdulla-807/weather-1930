@@ -2,7 +2,7 @@
     <Transition name="modal">
     <div @click="closeModal" class="modal">
         <div @click.stop="" class="modal__form">
-            <h3 class="modal__title">{{ edit ? 'Изменить заметку' : 'Добавить заметку' }}</h3>
+            <h3 class="modal__title">{{ edit ? words.titlewindowedit[lang] : words.titlewindow[lang] }}</h3>
             <div class="modal__content">
                 <label>
                     <span>Title</span>
@@ -14,9 +14,9 @@
                 </label>
             </div>
             <div class="modal__controls">
-                <button @click="closeModal" class="modal__btn modal__btn_red">Отмена</button>
-                <button v-if="edit" @click="changeNote" class="modal__btn">изменить</button>
-                <button v-else @click="addNote" class="modal__btn">Добавить</button>
+                <button @click="closeModal" class="modal__btn modal__btn_red">{{ words.closebtn[lang] }}</button>
+                <button v-if="edit" @click="changeNote" class="modal__btn">{{ words.editwindowbtn[lang] }}</button>
+                <button v-else @click="addNote" class="modal__btn">{{ words.addbtn[lang] }}</button>
             </div>
         </div>
     </div>
@@ -28,7 +28,8 @@
         props:{
             currentId: Number,
             edit: Boolean,
-            editNote: Object
+            editNote: Object,
+            lang: String
         },
         data(){
             return {
@@ -81,7 +82,8 @@
                     this.title = this.desc = '';
                 }
             }
-        }
+        },
+        inject: ['words']
     }
 </script>
 
