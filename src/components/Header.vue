@@ -38,6 +38,11 @@
                     this.header = true
                 }
             })
+        },
+        watch: {
+            search(val){
+                this.$emit('getSearch', val)
+            }
         }
     }
 </script>

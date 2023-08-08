@@ -1,16 +1,16 @@
 <template>
     <div class="card">
         <div :class="{ card__content: !grid }">
-            <h3 class="card__title">Title</h3>
-            <p class="card__date">07.03.2022</p>
+            <h3 class="card__title">{{ note.title }}</h3>
+            <p class="card__date">{{ note.date }}</p>
         </div>
-        <p class="card__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+        <p class="card__desc">{{ note.desc }}</p>
         <div class="card__controls">
-            <button class="card__btn">
+            <button @click="$emit('changeNote')" class="card__btn">
                 <img src="../assets/img/edit.svg" alt="">
                 <span>РЕДАКТИРОВАТЬ</span>
             </button>
-            <button class="card__btn card__btn_red">
+            <button @click="$emit('delNote')" class="card__btn card__btn_red">
                 <img src="../assets/img/delete.svg" alt="">
                 <span>Удалить</span>
             </button>
@@ -21,7 +21,8 @@
 <script>
     export default {
         props: {
-            grid: Boolean
+            grid: Boolean,
+            note: Object
         }
     }
 </script>

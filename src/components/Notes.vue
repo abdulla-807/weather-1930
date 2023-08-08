@@ -2,7 +2,7 @@
     <div class="notes">
         <div class="container">
             <section class="notes__header">
-                <h2 class="notes__title">Все заметки</h2>
+                <h2 class="notes__title">{{ notes.length > 0 ? 'Все заметки' : 'Нет заметок' }}</h2>
                 <button @click="grid = !grid" class="notes__btn">
                     <img v-if="grid" src="../assets/img/list.svg" alt="">
                     <img v-else src="../assets/img/grid.svg" alt="">
@@ -13,6 +13,9 @@
                 <NotesCard 
                 :grid="grid"
                 v-for="item, index in notes" :key="item.id"
+                :note="item"
+                @delNote="$emit('delNote', item.id)"
+                @changeNote="$emit('changeNote', item.id)"
                 />
             </section>
         </div>
